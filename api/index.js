@@ -37,9 +37,14 @@ app.use(mongoSanitize());
 app.use(cookieParser());
 app.use(xss());
 app.use(cors({
-  origin: 'https://persception.netlify.app',
+  origin: '*',
   credentials: true,
 }));
+
+// app.use(cors({
+//   origin: 'https://persception.netlify.app',
+//   credentials: true,
+// }));
 
 // Routes
 console.log("API Route was hit at root")
