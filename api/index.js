@@ -15,6 +15,8 @@ const xss = require('xss-clean');
 
 const app = express();
 
+console.log("In express app");
+
 // Connect DB only once
 let connected = false;
 async function connectToDB() {
@@ -40,6 +42,7 @@ app.use(cors({
 }));
 
 // Routes
+console.log("API Route was hit at root")
 app.use('/', overviewRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/ai/', aiRouter);
