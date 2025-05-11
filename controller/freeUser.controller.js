@@ -1,6 +1,5 @@
 const AppError = require("../utils/appError");
 const { catchAsync } = require("../utils/catchAsync");
-const aiAPI = require("../utils/apiCalls");
 const FreeAccessModel = require("../models/freeUser.model");
 
 exports.grantAccess = catchAsync(async (req, res, next) => {

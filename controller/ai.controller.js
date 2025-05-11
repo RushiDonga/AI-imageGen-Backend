@@ -1,8 +1,6 @@
 const AppError = require("../utils/appError");
 const { catchAsync } = require("../utils/catchAsync");
 const aiAPI = require("../utils/apiCalls");
-const imageBase64 = require("../data/base64");
-const { response } = require("express");
 
 exports.updateUserCredits = catchAsync(async (req, res, next) => {
   if (req.freeUser) {
