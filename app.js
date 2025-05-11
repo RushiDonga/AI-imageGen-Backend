@@ -26,7 +26,7 @@ app.use(mongoSanitize());
 app.use(cookieParser());
 app.use(xss());
 app.use(cors({
-  origin: 'https://persception.netlify.app/',
+  origin: "*", // 'https://persception.netlify.app/',
   credentials: true
 }))
 
