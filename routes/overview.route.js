@@ -4,6 +4,6 @@ const authController = require('../controller/auth.controller');
 
 const overviewRouter = express.Router();
 
-overviewRouter.get('/', authController.protect, authController.restrictTo('user', 'admin'), overviewController.simpleOverviews);
+overviewRouter.get('/', overviewController.simpleOverviews);
 
 module.exports = overviewRouter;
