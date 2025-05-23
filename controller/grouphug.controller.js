@@ -40,17 +40,26 @@ exports.organizeData = catchAsync(async (req, res, next) => {
     apiKey: process.env.OPENAI_API_KEY,
   });
 
-    const completion = await openai.chat.completions.create({
+  const completion = await openai.chat.completions.create({
     model: process.env.OPENAI_MODEL,
     store: true,
     messages: [{ role: "user", content: content }],
   });
 
-  const cleanJsonString = completion.choices[0].message.content.replace(/^```json|```$/g, "").trim();
-  
+  const cleaned = completion.choices[0].message.content
+    .replace(/^```json|```$/g, "")
+    .trim();
+
+  let parsedData;
+  try {
+    parsedData = JSON.parse(cleaned);
+    console.log("Parsed JSON:", parsedData);
+  } catch (err) {
+    return next(new AppError('Unable to parse to JSON'));
+  }
 
   res.status(200).json({
-    status: 'success',
-    data: JSON.parse(completion.choices[0].message)
+    status: "success",
+    data: parsedData,
   });
 });
