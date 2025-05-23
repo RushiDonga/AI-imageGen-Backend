@@ -51,6 +51,6 @@ exports.organizeData = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    data: JSON.parse(cleanJsonString)
+    data: JSON.parse(completion.choices[0].message.content)
   });
 });
