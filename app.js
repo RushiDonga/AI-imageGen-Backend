@@ -15,7 +15,7 @@ const groupHugRouter = require('./routes/grouphug.route');
 const app = express();
 
 // CORS
-const allowedOrigins = ['https://persception.netlify.app', 'https://organizechats.netlify.app'];
+const allowedOrigins = ['https://persception.netlify.app', 'https://organizechats.netlify.app', 'http://localhost:5173'];
 
 app.use(cors({
   origin: function (origin, callback) {
