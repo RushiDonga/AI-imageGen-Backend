@@ -9,9 +9,24 @@ const {globalErrorHandler} = require('./middleware/globalErrorHandler');
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
 const mongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss-clean')
+const xss = require('xss-clean');
+const groupHugRouter = require('./routes/grouphug.route');
 
 const app = express();
+
+// CORS
+const allowedOrigins = ['https://persception.netlify.app', 'http://localhost:5173'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 // Variables
 const PORT = process.env.PORT;
@@ -25,17 +40,13 @@ app.use(express.json({limit: '30kb'}));
 app.use(mongoSanitize());
 app.use(cookieParser());
 app.use(xss());
-app.use(cors({
-  origin: 'https://persception.netlify.app',
-  credentials: true
-}))
 
 // Routes
 app.use('/', overviewRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/ai/', aiRouter);
-app.use('/api/v1/free/', freeUserRouter)
-
+app.use('/api/v1/free/', freeUserRouter);
+app.use('/api/v1/groupHug/', groupHugRouter);
 
 // Connect to Database
 mongoose.connect(`mongodb+srv://${USERNAME}:${PASSWORD}@promptpaint.af4fl0x.mongodb.net/?retryWrites=true&w=majority&appName=PromptPaint`)
