@@ -86,11 +86,10 @@ const handleMaps = async (maps) => {
 const getLatLng = async (address, context) => {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAPS_API_KEY}`
   const response = await axios.get(url);
+  console.log(response.data);
 
   if(response.data.status === 'OK'){
     const location = response.data.results[0].geometry.location;
-    console.log(`LATITUDE: ${location.lat}`)
-    console.log(`LONGITUDE: ${location.lng}`)
 
     return {
       address: response.data.results[0].formatted_address,
